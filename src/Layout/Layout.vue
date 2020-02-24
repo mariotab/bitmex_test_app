@@ -2,15 +2,18 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3">
-        <p> Test</p>
+        <ActiveInstrument />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ActiveInstrument from '../components/ActiveInstrument'
 export default {
-
+  components: {
+    ActiveInstrument
+  }
 }
 </script>
 
