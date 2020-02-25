@@ -1,7 +1,7 @@
 <template>
-  <div class="instrument-wrapper">
+  <div class="table-wrapper">
     <Loader v-if="loader"/>
-    <table class="table table-hover table-dark instrument-table" v-else>
+    <table class="table table-hover table-dark trader-table" v-else>
       <thead>
         <tr>
           <th scope="col">Symbol</th>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { newWebSocket } from '../bitmexService/bitmexApi'
+// import { newWebSocket } from '../bitmexService/bitmexApi'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 import Loader from './Loader'
 export default {
@@ -47,7 +47,7 @@ export default {
   async created () {
     await this.fetchSymbols()
     // ----- START SOCKET CODE ------
-    this.ws = newWebSocket()
+    /* this.ws = newWebSocket()
     this.ws.onopen = () => {
       this.ws.send(
         JSON.stringify({
@@ -62,23 +62,14 @@ export default {
     }
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
-      if (message.data[0].lastPrice) this.updateSymbolPrice(message.data[0].symbol, message.data[0].lastPrice)
-    }
+      if (message.data && message.data[0].lastPrice) this.updateSymbolPrice(message.data[0].symbol, message.data[0].lastPrice)
+    } */
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .instrument-table {
-    margin-top: 12px;
-    overflow: hidden;
-    border-radius: 10px;
-  }
   .instrument-table-row:hover {
     cursor: pointer;
-  }
-  .instrument-wrapper {
-    min-width: 100%;
-    min-height: 100vh;
   }
 </style>

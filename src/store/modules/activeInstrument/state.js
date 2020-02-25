@@ -1,5 +1,5 @@
 export default {
-  selectedSymbol: '',
+  selectedSymbol: 'XBTUSD',
   symbols: [],
   loadigSymbols: false,
   errorSymbols: null
