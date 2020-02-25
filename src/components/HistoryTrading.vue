@@ -47,6 +47,7 @@ export default {
   watch: {
     async symbol () {
       await this.fetchHistory(this.symbol)
+      this.history.splice(15)
     }
   },
   methods: {
@@ -58,6 +59,7 @@ export default {
   },
   async created () {
     await this.fetchHistory()
+    this.history.splice(15)
     // ----- START SOCKET CODE ------
     this.ws = newWebSocket()
     this.ws.onopen = () => {
@@ -76,6 +78,7 @@ export default {
       const message = JSON.parse(evt.data)
       if (message.data && this.history[0].timestamp !== message.data[0].timestamp) {
         this.history.unshift(message.data[0])
+        this.history.splice(15)
       }
     }
   }
@@ -83,4 +86,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

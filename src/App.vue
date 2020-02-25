@@ -18,7 +18,12 @@ export default {
 <style lang="scss">
   .table-wrapper {
     min-width: 100%;
-    min-height: 100vh;
+    height: fit-content;
+  }
+  .trader-table {
+    margin-top: 12px;
+    overflow: hidden;
+    border-radius: 10px;
   }
   @import'~bootstrap/dist/css/bootstrap.css'
 </style>
