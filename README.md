@@ -9,6 +9,11 @@ npm install
 ```
 npm run serve
 ```
+### Because BitMEX does not allow by default access to their API with browsers (by not sending CORS headers), you need to find a suitable CORS proxy or run one yourself. If you have the source code of this project, you can run one by running this in a separate terminal window.
+### It will listen on port 8081 and settings are pre-filled with this proxy address.
+```
+npm run proxy
+```
 
 ### Compiles and minifies for production
 ```
