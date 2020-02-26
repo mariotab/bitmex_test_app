@@ -16,6 +16,9 @@ export default {
 </script>
 
 <style lang="scss">
+  #app {
+    background-color: #e0e0e0a8
+  }
   .table-wrapper {
     min-width: 100%;
     height: fit-content;

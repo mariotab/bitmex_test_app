@@ -71,8 +71,14 @@ export function fetchNewOrder2 (context, payload) {
   }
 
   request(requestOptions, function (error, response, body) {
-    if (error) { console.log(error) }
-    console.log(body)
+    if (error) {
+      console.log(body)
+    }
+    const message = JSON.parse(body)
+    if (message.error) {
+      context.commit('setErrorRequest', message.error.message)
+      console.log(message.error.message)
+    }
   })
   context.commit('setRequest', false)
 }

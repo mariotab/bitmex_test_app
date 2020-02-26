@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="item in symbols" :key="item.symbol" class="instrument-table-row" @click="setSymbol(item.symbol)">
           <th scope="row">{{item.symbol}}</th>
-          <td>{{item.lastPrice}}</td>
+          <td :ref="item.symbol" class="td-change">{{item.lastPrice}}</td>
         </tr>
       </tbody>
     </table>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-// import { newWebSocket } from '../bitmexService/bitmexApi'
+import { newWebSocket } from '../bitmexService/bitmexApi'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 import Loader from './Loader'
 export default {
@@ -40,14 +40,20 @@ export default {
     ...mapActions(['fetchSymbols']),
     updateSymbolPrice (symbol, price) {
       this.symbols.forEach(element => {
-        if (element.symbol === symbol) element.lastPrice = price
+        if (element.symbol === symbol) {
+          element.lastPrice = price
+          this.$refs[symbol][0].classList.add('change')
+          setTimeout(() => {
+            this.$refs[symbol][0].classList.remove('change')
+          }, 300)
+        }
       })
     }
   },
   async created () {
     await this.fetchSymbols()
     // ----- START SOCKET CODE ------
-    /* this.ws = newWebSocket()
+    this.ws = newWebSocket()
     this.ws.onopen = () => {
       this.ws.send(
         JSON.stringify({
@@ -55,7 +61,7 @@ export default {
           args: 'instrument'
         })
       )
-      console.log('WS подключенно')
+      console.log('WS active instrument подключенно')
     }
     this.ws.onclose = function (eventclose) {
       console.log('соеденение закрыто причина: ' + this.eventclose)
@@ -63,7 +69,7 @@ export default {
     this.ws.onmessage = evt => {
       const message = JSON.parse(evt.data)
       if (message.data && message.data[0].lastPrice) this.updateSymbolPrice(message.data[0].symbol, message.data[0].lastPrice)
-    } */
+    }
   }
 }
 </script>
@@ -71,5 +77,11 @@ export default {
 <style lang="scss" scoped>
   .instrument-table-row:hover {
     cursor: pointer;
+  }
+  .td-change {
+    transition: background-color .3s;
+  }
+  .change {
+    background-color: #ffffff91
   }
 </style>

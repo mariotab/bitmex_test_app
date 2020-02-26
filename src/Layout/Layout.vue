@@ -11,6 +11,11 @@
         <Orders />
       </div>
     </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <HistoryOrder />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,7 +27,8 @@ export default {
   components: {
     ActiveInstrument,
     HistoryTrading,
-    Orders
+    Orders,
+    HistoryOrder: () => import('../components/HisoryOrder') // <--- we don't need use dinamic import in this line, but for demonstration we can use this ;)
   }
 }
 </script>

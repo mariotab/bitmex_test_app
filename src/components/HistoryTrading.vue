@@ -12,16 +12,16 @@
           <th scope="col">Volume</th>
         </tr>
       </thead>
-      <tbody>
+      <transition-group name="flip-list" tag="tbody">
         <tr v-for="item in history" :key="item.timestamp" class="instrument-table-row">
-          <td scope="row">{{newData(item.timestamp)}}</td>
+          <td scope="row">{{dateConvert(item.timestamp)}}</td>
           <td>{{item.open}}</td>
           <td>{{item.close}}</td>
           <td>{{item.high}}</td>
           <td>{{item.low}}</td>
           <td>{{item.volume}}</td>
         </tr>
-      </tbody>
+       </transition-group>
     </table>
   </div>
 </template>
@@ -30,10 +30,12 @@
 import { newWebSocket } from '../bitmexService/bitmexApi'
 import { mapActions, mapGetters } from 'vuex'
 import Loader from './Loader'
+import { dateConvert } from '../mixins/dateConvert'
 export default {
   components: {
     Loader
   },
+  mixins: [dateConvert],
   data: () => ({
     ws: null
   }),
@@ -51,11 +53,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchHistory']),
-    newData (date) {
-      const myDate = new Date(date)
-      return `${myDate.getFullYear()}-${myDate.getMonth() < 10 ? '0' + (myDate.getMonth() + 1) : myDate.getMonth() + 1}-${myDate.getDate()} ${myDate.getHours()}:${myDate.getMinutes() < 10 ? '0' + myDate.getMinutes() : myDate.getMinutes()}`
-    }
+    ...mapActions(['fetchHistory'])
   },
   async created () {
     await this.fetchHistory()
@@ -69,7 +67,7 @@ export default {
           args: `tradeBin1m:${this.symbol}`
         })
       )
-      console.log('WS подключенно')
+      console.log('WS history trading подключенно')
     }
     this.ws.onclose = function (eventclose) {
       console.log('соеденение закрыто причина: ' + this.eventclose)
@@ -86,5 +84,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .flip-list-move {
+    transition: transform 2s;
+  }
 </style>

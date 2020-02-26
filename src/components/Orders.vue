@@ -46,7 +46,8 @@ export default {
   computed: {
     ...mapGetters({
       symbol: 'getSymbol',
-      loader: 'getCreateRequest'
+      loader: 'getCreateRequest',
+      error: 'getErrorNewOrder'
     })
   },
   watch: {
