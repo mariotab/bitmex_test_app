@@ -9,7 +9,7 @@
     "proxy": "node cors-proxy/proxy"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "cors-anywhere": "^0.4.1",
     "crypto": "^1.0.1",
